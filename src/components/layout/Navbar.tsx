@@ -91,7 +91,7 @@ export const Navbar: React.FC = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`relative text-xs sm:text-sm font-medium transition-all flex items-center gap-1 py-1 ${
+                className={`relative text-xs sm:text-sm font-medium transition-all flex items-center gap-1 py-1.5 ${
                   isActive
                     ? 'text-white font-bold border-b-2 border-white'
                     : 'text-white/80 hover:text-white'
@@ -104,13 +104,14 @@ export const Navbar: React.FC = () => {
 
           <div
             ref={dropdownRef}
-            className="relative"
+            className="relative py-1.5 group"
             onMouseEnter={() => setIsAboutDropdownOpen(true)}
             onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
             <button
+              type="button"
               onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-              className={`relative text-xs sm:text-sm font-medium transition-all flex items-center gap-1 py-1 cursor-pointer ${
+              className={`relative text-xs sm:text-sm font-medium transition-all flex items-center gap-1 cursor-pointer select-none ${
                 isAboutActive
                   ? 'text-white font-bold border-b-2 border-white'
                   : 'text-white/80 hover:text-white'
@@ -125,33 +126,36 @@ export const Navbar: React.FC = () => {
             </button>
 
             <div
-              className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-[#181818]/95 backdrop-blur-2xl border border-[#2E2E2E] rounded-xl shadow-2xl py-2 z-50 transition-all duration-200 origin-top ${
+              className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 w-60 z-50 transition-all duration-200 origin-top ${
                 isAboutDropdownOpen
                   ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
                   : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
               }`}
             >
-              <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-white/40 border-b border-[#242424] mb-1">
-                Company & Legal
-              </div>
+              <div className="bg-[#181818]/98 backdrop-blur-2xl border border-[#2E2E2E] rounded-xl shadow-2xl py-2 overflow-hidden">
+                <div className="px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white/40 border-b border-[#242424] mb-1">
+                  Company & Legal
+                </div>
 
-              {aboutDropdownItems.map((item) => {
-                const isItemActive = location.pathname === item.path;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium transition-colors ${
-                      isItemActive
-                        ? 'text-white bg-[#EC1E79]/15 font-bold border-l-2 border-[#EC1E79]'
-                        : 'text-white/70 hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    <span className="shrink-0">{item.icon}</span>
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
+                {aboutDropdownItems.map((item) => {
+                  const isItemActive = location.pathname === item.path;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setIsAboutDropdownOpen(false)}
+                      className={`flex items-center gap-2.5 px-3.5 py-2.5 text-xs font-medium transition-colors ${
+                        isItemActive
+                          ? 'text-white bg-[#EC1E79]/20 font-bold border-l-2 border-[#EC1E79]'
+                          : 'text-white/70 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="shrink-0">{item.icon}</span>
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </nav>
@@ -192,6 +196,7 @@ export const Navbar: React.FC = () => {
               <Link
                 key={link.name}
                 to={link.path}
+                onClick={() => setIsOpen(false)}
                 className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                   isActive
                     ? 'bg-white/10 text-white font-bold'
@@ -205,6 +210,7 @@ export const Navbar: React.FC = () => {
 
           <div className="pt-1">
             <button
+              type="button"
               onClick={() => setMobileAboutExpanded(!mobileAboutExpanded)}
               className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isAboutActive
@@ -227,7 +233,11 @@ export const Navbar: React.FC = () => {
                     <Link
                       key={item.name}
                       to={item.path}
-                      className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+                      onClick={() => {
+                        setIsOpen(false);
+                        setMobileAboutExpanded(false);
+                      }}
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-md text-xs font-medium transition-colors ${
                         isItemActive
                           ? 'text-white bg-[#EC1E79]/20 font-bold'
                           : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -245,12 +255,14 @@ export const Navbar: React.FC = () => {
           <div className="pt-4 border-t border-[#2A2A2A] grid grid-cols-2 gap-3">
             <Link
               to="/login"
+              onClick={() => setIsOpen(false)}
               className="py-2.5 rounded-lg bg-[#222222] border border-[#3A3A3A] text-white text-xs font-semibold text-center hover:bg-[#2A2A2A] transition-all"
             >
               Login
             </Link>
             <Link
               to="/register"
+              onClick={() => setIsOpen(false)}
               className="py-2.5 rounded-lg bg-gradient-to-r from-[#EC1E79] to-[#9900CC] text-white text-xs font-semibold text-center shadow-brand-glow hover:opacity-95 transition-all"
             >
               Register
