@@ -6,8 +6,6 @@
 [![Vite](https://img.shields.io/badge/Vite_6.4-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-> **Live Deployment:** [https://airoame.vercel.app](https://airoame.vercel.app)
-
 **Airoame** is a luxury campervan, motorhome, and overland RV rental web application designed for modern digital nomads, nature explorers, and roadtrip adventurers. Built with React 18, TypeScript, Tailwind CSS, and Vite, it delivers responsive performance with route-level code splitting, studio vehicle showcases, instant modal reservations, and interactive map hubs.
 
 ---
